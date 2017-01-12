@@ -1,0 +1,49 @@
+#/* Copyright 1993,1994 by Carl Harris, Jr.
+# * All rights reserved
+# *
+# * Distribute freely, except: don't remove my name from the source or
+# * documentation (don't take credit for my work), mark your changes (don't
+# * get me blamed for your possible bugs), don't alter or remove this
+# * notice.  May be sold if buildable source is provided to buyer.  No
+# * warrantee of any kind, express or implied, is included with this
+# * software; use at your own risk, responsibility for damages (if any) to
+# * anyone resulting from the use of this software rests entirely with the
+# * user.
+# *
+# * Send bug reports, bug fixes, enhancements, requests, flames, etc., and
+# * I'll try to keep a version up to date.  I can be reached as follows:
+# * Carl Harris   <ceharris@vt.edu>
+# */
+
+popclient is a POP2/POP3 compliant mail retrieval client.  It compiles 
+and installs cleanly on most systems.  When compiling on SysV-based systems 
+you will probably need to add '-lbsd' to the LIBS variable in the Makefile.
+I personally have compiled and tested popclient on the following systems:
+
+o	Ultrix 4.2A, 4.3, 4.3A
+o	DEC/OSF1 1.x
+o	NetBSD 0.9
+o	AIX 3.2.x
+o	Sequent DYNIX 3.2.x
+
+Others tell me that it compiles easily on
+
+o	Linux 0.9, 1.0
+o	SunOS 4.x
+
+Sorry, there is no cutesy 'Configure' script.  You'll have to edit the
+Makefile and config.h -- I've done my best to include reasonable defaults
+for most everything.
+
+Once the Makefile and config.h are ready, do the following:
+
+o	'make'
+o	'su' and 'make install'
+
+and you're ready to go.  Be sure to 'man popclient' -- the man page is 
+fairly extensive.
+
+Enjoy!
+
+Carl Harris <ceharris@vt.edu>
+1 April 1994

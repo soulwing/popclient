@@ -1,0 +1,42 @@
+
+popclient
+Copyright (c) 1993,1994  Carl Harris, Jr.  <ceharris@vt.edu>
+
+Version	Description
+------- -----------
+1.0- 	o  Original POP2 development version, term support, minor patches.
+1.6	
+
+1.7	o  Added MAIL environment variable support, System V Makefile changes.
+
+2.1	o  First version to support POP3.
+	o  First wide release to public at large.
+	o  Began maintaining this file of changes.
+
+2.1a	o  Fixed bug in verbose output in POP3 mode.
+	o  Changed bzero() on the options structure to account for programmer 
+           boneheadedness.
+	o  Changed errorneous call in SockPrintf from SockPuts to SockWrite.
+	o  Moved error report on socket errors in main().
+	o  Removed -g -O0 from CFLAGS in Makefile.
+
+2.1b	o  Changed erroneous fputs() to fprintf() in POP3_OK.
+
+2.20	o  Changed argv[] pointers to point to innocuous junk so that a
+	   password specified using -p will not be compromised by the
+	   'ps' command.
+	o  Radically changed system mailbox handling to use /bin/mail (or
+	   equivalent MDA) to deliver user's mail to the mail spool.  This
+	   not only obviates the need for MAIL environment variable support,
+	   but also relieves the client of folder locking concerns.  Thanks
+	   go to Tor Lillqvist <tml@tik.vtt.fi> for this suggestion.
+	o  Set up to allow installer to specify the default protocol and the
+	   new MDA (/bin/mail) support configuration in config.h.
+	o  Typecast call to getpass() to get rid of gcc warning.
+	o  Check for INADDR_NONE definition in socket.h
+
+2.21	o  Changed inline function argument definitions in socket.c to easy
+	   SunOS compile.
+	o  Fixed mail delivery to system mail folder to use _login_ ID not
+	   POP mail user ID.
+
