@@ -1,0 +1,568 @@
+<!-- Creator     : groff version 1.19.2 -->
+<!-- CreationDate: Thu Jan 12 08:32:27 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p     { margin-top: 0; margin-bottom: 0; }
+       pre   { margin-top: 0; margin-bottom: 0; }
+       table { margin-top: 0; margin-bottom: 0; }
+</style>
+<title>popclient</title>
+
+</head>
+<body>
+
+<h1 align=center>popclient</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#PROTOCOL SELECTION">PROTOCOL SELECTION</a><br>
+<a href="#USER AUTHENTICATION">USER AUTHENTICATION</a><br>
+<a href="#OUTPUT OPTIONS">OUTPUT OPTIONS</a><br>
+<a href="#EXIT CODES">EXIT CODES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<a name="NAME"></a>
+<h2>NAME</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">popclient
+&minus; retrieve mail from a mailserver using Post Office
+Protocol.</p>
+
+<a name="SYNOPSIS"></a>
+<h2>SYNOPSIS</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>popclient</b>
+[<b>-2</b> | <b>-3</b>] [<b>-Vksv</b>] [<b>-u</b>
+<i>server-userid</i>] [<b>-p</b> <i>server-password</i>]
+<br>
+[<b>-f</b> <i>remote-folder</i>] [<b>-c</b> | <b>-o</b>
+<i>local-folder</i>] <i>host</i></p>
+
+<a name="DESCRIPTION"></a>
+<h2>DESCRIPTION</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>popclient</i>
+is a Post Office Protocol compliant mail retrieval client
+which supports both POP2 (as specified in RFC 937) and POP3
+(RFC 1225).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Typically,
+<i>popclient</i> will be used to download mail in batch from
+the remote mailserver specified by <i>host</i> to a mail
+folder on the local disk. The retrieved mail will then be
+manipulated using a local mail reader, such as <i>mail</i>
+or <i>elm.</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">To facilitate
+the use of <i>popclient</i> in scripts, pipelines, etc, it
+returns an appropriate exit code upon termination -- see
+EXIT CODES below.</p>
+
+<a name="OPTIONS"></a>
+<h2>OPTIONS</h2>
+
+
+<table width="100%" border=0 rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;2</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Use Post Office
+Protocol version 2 (POP2).</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;3</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Use Post Office
+Protocol version 3 (POP3).</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;k</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Keep messages in
+folder on remote mailserver. Normally, messages are deleted
+from the folder on the mailserver after they have been
+retrieved. Specifying <b>&minus;k</b> causes retrieved
+messages to remain in your folder on the mailserver.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;s</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Silent mode.
+Suppresses all progress/status messages that are normally
+echoed to stderr during a POP connection. If both the
+<b>&minus;s</b> and <b>&minus;v</b> options are specified,
+the <b>&minus;v</b> option takes precedence.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;v</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Verbose mode. All
+control messages passed between <i>popclient</i> and the
+mailserver are echoed to stderr. Specifying <b>&minus;v</b>
+causes normal progress/status messages which would be
+redundant or meaningless to be modified or omitted.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;u</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Specifies the user
+idenfication to be used when logging-in to the mailserver.
+The appropriate user identification is both server and user
+dependent. Default is your login name on the machine that is
+running <i>popclient.</i> See USER AUTHENTICATION below for
+a complete description.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;p</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Specifies the
+password to be used when logging-in to the mailserver. The
+appropriate password is both server and user dependent. If
+the <b>&minus;p</b> option is not used to specify a
+password, you will be prompted for a password before the
+connection to the mailserver is established. See USER
+AUTHENTICATION below for a complete description.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;f</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Causes an alternate
+mail folder on the mailserver to be retrieved. The syntax of
+the folder name is server dependent, as is the default
+behavior when no folder is specified. Fortunately, most POP
+servers have a reasonable default behavior, so use of this
+option should be limited to fairly specialized applications.
+POP3 does not provide a folder specification in the
+protocol. If the <b>&minus;f</b> option is used in
+conjunction with the <b>&minus;3</b> option, the remote
+folder specification is ignored.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;o</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Causes retrieved
+messages to be appended to an alternate mail folder on the
+local disk. When neither <b>&minus;o</b> nor <b>&minus;c</b>
+is specified, retrieved messages are appended to the system
+default mail folder. See OUTPUT OPTIONS below for a complete
+description.</p> </td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;c</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Causes retrieved
+messages to be written to stdout instead of a mail folder.
+See OUTPUT OPTIONS below for a complete description. You may
+not specify both the <b>&minus;c</b> and <b>&minus;o</b>
+options on the same command line.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em" valign="top">&minus;V</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Displays the
+version information for your copy of <i>popclient.</i> If
+you specify the <b>&minus;V</b> option, all other options
+are ignored and no POP connection is made.</p></td>
+</table>
+
+<a name="PROTOCOL SELECTION"></a>
+<h2>PROTOCOL SELECTION</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The selection
+of the correct Post Office Protocol (POP2 or POP3) depends
+upon the configuration of the mailserver from which you
+retrieve your mail. The system adminstrator who installed
+<i>popclient</i> on your system should have chosen an
+appropriate default protocol for your mailserver. If you get
+the message &rsquo;Connection refused&rsquo; when using the
+default protocol, try specifying <b>&minus;2</b> or
+<b>&minus;3</b> to select a different protocol. If the
+&rsquo;Connection refused&rsquo; message persists regardless
+of the protocol selected, it is likely that your mailserver
+is not running a POP compliant mail service.</p>
+
+<a name="USER AUTHENTICATION"></a>
+<h2>USER AUTHENTICATION</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">User
+authentication in <i>popclient</i> is very much like the
+authentication mechanism of <i>ftp(1).</i> The correct
+user-id and password depend upon the underlying security
+system at the mailserver.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the
+mailserver is a Unix machine on which you have an ordinary
+user account, your regular login name and password are used
+with <i>popclient.</i> If you use the same login name on
+both the server and the client machines, you needn&rsquo;t
+worry about specifying a user-id with the <b>&minus;u</b>
+option &minus;&minus; the default behavior will use your
+login name on the client machine as the user-id on the
+server machine. If you use a different login name on the
+server machine, specify that login name with the
+<b>&minus;u</b> option. e.g. if your login name is
+&rsquo;jsmith&rsquo; on a machine named
+&rsquo;mailgrunt&rsquo;, you would start <i>popclient</i> as
+follows:</p>
+
+<p style="margin-left:22%; margin-top: 1em">popclient -u
+jsmith mailgrunt</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+behavior of <i>popclient</i> is to prompt you for your
+mailserver password before the POP connection is
+established. This is the safest way to use <i>popclient</i>
+and ensures that your password will not be compromised. You
+may also specify your password using the <b>&minus;p</b>
+option. This is convenient when using <i>popclient</i> with
+automated scripts, but it may result in your password being
+exposed to prying eyes &minus;&minus; be careful! Regardless
+of how your password is specified it is never stored in
+shared memory segments, or left unencrypted in the core
+image when <i>popclient</i> terminates. Continuing the
+preceding example, suppose your password on
+&acute;mailgrunt&rsquo; is &rsquo;Gr8PassWd&rsquo;. The
+syntax would be:</p>
+
+<p style="margin-left:22%; margin-top: 1em">popclient -u
+jsmith -p Gr8PassWd mailgrunt</p>
+
+<p style="margin-left:11%; margin-top: 1em">On mailservers
+that do not provide ordinary user accounts, your user-id and
+password are usually assigned by the server administrator
+when you apply for a mailbox on the server. Contact your
+server administrator if you don&rsquo;t know the correct
+user-id and password for your mailbox account.</p>
+
+<a name="OUTPUT OPTIONS"></a>
+<h2>OUTPUT OPTIONS</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>popclient</i>
+always writes the retrieved messages using Unix mail folder
+format. This allows <i>popclient</i> to be used in
+conjunction with common mail readers like <i>mail</i> and
+<i>elm.</i> The retrieved messages are normally appended to
+your default system mailbox on the local disk, using the
+local Mail Delivery Agent (MDA), usually /bin/mail(1), so
+that when you invoke your mail reader it can manipulate the
+retrieved messages like any other mail you receive on the
+client machine.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Using the
+<b>&minus;o</b> option, you can specify a different mail
+folder to which the retrieved messages will be appended. If
+you prefer, for example, to have your POP mail from a
+machine called &rsquo;mailgrunt&rsquo; stored in the
+<i>mbox</i> file in your home directory, you would start
+<i>popclient</i> as follows:</p>
+
+<p style="margin-left:22%; margin-top: 1em">popclient
+&minus;o $HOME/mbox mailgrunt</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that the
+folder specified with <b>&minus;o</b> is not locked or
+otherwise protected from other processes writing to it while
+popclient is writing to it.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>popclient</i>
+can be used in a shell pipeline by using the <b>&minus;c</b>
+option. In this mode, <i>popclient</i> writes the retrieved
+messages to stdout, instead of a mail folder. This would
+allow you, for instance, to pass the incoming mail through a
+filter that discards mail marked as &rsquo;Precedence:
+junk&rsquo;. Suppose you&rsquo;ve written an AWK script
+called &rsquo;dumpjunk.awk&rsquo; to implement a junk mail
+filter. The appropriate syntax to retrieve your mail from
+&rsquo;mailgrunt&rsquo;, pass it through the filter, and
+write it to a folder called &rsquo;realmail&rsquo; in your
+home directory would be:</p>
+
+<p style="margin-left:22%; margin-top: 1em">popclient -c
+mailgrunt | awk -f dumpjunk.awk &gt; $HOME/realmail</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+progress/status messages written to stderr when the
+<b>&minus;s</b> option has not been specified, do not
+interfere with the message stream, which is written to
+stdout. You may even use <b>&minus;v</b> and <b>&minus;c</b>
+together without corrupting the message stream. It is a good
+idea to use the <b>&minus;k</b> option when using
+<b>&minus;c</b> to insure that your messages will not be
+lost if part of the shell pipeline does not function
+incorrectly. The safest bet would be something like:</p>
+
+<p style="margin-left:22%; margin-top: 1em">popclient -k -c
+mailgrunt | myfilter &gt; $HOME/filtered.mail</p>
+
+<p style="margin-left:11%; margin-top: 1em">followed by</p>
+
+<p style="margin-left:22%; margin-top: 1em">popclient -c
+mailgrunt &gt; /dev/null</p>
+
+<p style="margin-left:11%; margin-top: 1em">when
+you&rsquo;re sure the messages were correctly processed by
+&rsquo;myfilter&rsquo;.</p>
+
+<a name="EXIT CODES"></a>
+<h2>EXIT CODES</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">To facilitate
+the use of <i>popclient</i> in shell scripts and the like,
+an exit code is returned to give an indication of what
+occured during a given POP connection. The exit code can be
+tested by the script and appropriate action taken.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A simple
+example follows. This Bourne shell script executes
+<i>popclient</i> and, if some messages were successfully
+retrieved from a mailserver retrieved from the command line,
+it starts the <i>mail</i> utility to read those messages.
+Otherwise, it prints a brief message, and exits.
+#!/bin/sh</p>
+
+<p style="margin-left:11%; margin-top: 1em">if popclient $1
+then <br>
+mail else <br>
+echo &quot;No mail to read.&quot; fi</p>
+
+<p style="margin-left:11%; margin-top: 1em">The exit codes
+returned by <i>popclient</i> are as follows:</p>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">0</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">One or more
+messages were successfully retrieved.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">1</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">There was no mail
+awaiting retrieval.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">2</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">An error was
+encountered when attempting to open a socket for the POP
+connection. If you don&rsquo;t know what a socket is,
+don&rsquo;t worry about it -- just treat this as an
+&rsquo;unrecoverable error&rsquo;.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">3</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">The user
+authentication step failed. This usually means that a bad
+user-id or password was specified.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">4</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Some sort of
+protocol error was detected. POP is not especially forgiving
+when it comes to unexpected responses, commands, etc -- the
+protocol invariably calls for terminating the connection
+under such error conditions.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">5</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">There was a syntax
+error in the arguments to <i>popclient.</i></p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">6</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Some kind of I/O
+woes occurred when writing to the local folder.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">7</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">There was an error
+condition reported by the server (POP3 only).</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em" valign="top">9</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Something totally
+undefined occured. This is usually caused by a bug within
+<i>popclient.</i> Do let me know if this happens.</p></td>
+</table>
+
+<a name="AUTHOR"></a>
+<h2>AUTHOR</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>popclient</i>
+was written by Carl Harris at Virginia Polytechnic Institute
+and State University (a.k.a. Virginia Tech).</p>
+
+<a name="BUGS"></a>
+<h2>BUGS</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">There are none!
+Well, maybe one or two. Send comments, bug reports, gripes,
+and the like to ceharris@vt.edu.</p>
+
+<a name="SEE ALSO"></a>
+<h2>SEE ALSO</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mail(1),
+binmail(1), sendmail(8), popd(8), RFC 937, RFC 1225.</p>
+<hr>
+</body>
+</html>
