@@ -11,7 +11,7 @@ It is preserved here only for the sake of posterity, and almost certainly
 shouldn't be used today. You might have read about `popclient` 
 in Eric S Raymond's [The Cathedral and the Bazaar](http://www.catb.org/esr/writings/cathedral-bazaar/cathedral-bazaar/) or in Nick Christenson's 
 [Sendmail Performance Tuning](https://books.google.com/books/about/Sendmail_Performance_Tuning.html) and perhaps have been curious to see (or even try to
-build) the source. You might also be be interested in reviewing the original [man page](https://soulwing.github.io/popclient/popclient.html)
+build) the source. You might also be be interested in reviewing the original [man page](https://soulwing.github.io/popclient/popclient.html).
 
 Around 1996 `popclient` was radically transformed by Eric Raymond into
 the `fetchmail` utility. In 2004, [Rob Funk](https://sourceforge.net/u/robfunk/profile/) and others took responsibility for the ongoing maintenance and of
