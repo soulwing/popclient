@@ -1,0 +1,236 @@
+popclient(1L)                                                    popclient(1L)
+
+
+
+NNAAMMEE
+       popclient - retrieve mail from a mailserver using Post Office Protocol.
+
+SSYYNNOOPPSSIISS
+       ppooppcclliieenntt [--22 | --33] [--VVkkssvv] [--uu _s_e_r_v_e_r_-_u_s_e_r_i_d] [--pp _s_e_r_v_e_r_-_p_a_s_s_w_o_r_d]
+       [--ff _r_e_m_o_t_e_-_f_o_l_d_e_r] [--cc | --oo _l_o_c_a_l_-_f_o_l_d_e_r]  _h_o_s_t
+
+DDEESSCCRRIIPPTTIIOONN
+       _p_o_p_c_l_i_e_n_t is a Post Office Protocol  compliant  mail  retrieval  client
+       which supports both POP2 (as specified in RFC 937) and POP3 (RFC 1225).
+
+       Typically, _p_o_p_c_l_i_e_n_t will be used to download mail in  batch  from  the
+       remote mailserver specified by _h_o_s_t to a mail folder on the local disk.
+       The retrieved mail will then be manipulated using a local mail  reader,
+       such as _m_a_i_l or _e_l_m_.
+
+       To  facilitate  the  use  of  _p_o_p_c_l_i_e_n_t  in scripts, pipelines, etc, it
+       returns an appropriate exit code upon termination  --  see  EXIT  CODES
+       below.
+
+OOPPTTIIOONNSS
+       -2     Use Post Office Protocol version 2 (POP2).
+
+       -3     Use Post Office Protocol version 3 (POP3).
+
+       -k     Keep  messages  in  folder on remote mailserver.  Normally, mes-
+              sages are deleted from the folder on the mailserver  after  they
+              have been retrieved.  Specifying --kk causes retrieved messages to
+              remain in your folder on the mailserver.
+
+       -s     Silent mode.  Suppresses all progress/status messages  that  are
+              normally  echoed to stderr during a POP connection.  If both the
+              --ss and --vv options are specified, the --vv option takes precedence.
+
+       -v     Verbose mode.  All control messages passed between _p_o_p_c_l_i_e_n_t and
+              the mailserver are echoed to stderr.  Specifying --vv causes  nor-
+              mal  progress/status  messages which would be redundant or mean-
+              ingless to be modified or omitted.
+
+       -u     Specifies the user idenfication to be used  when  logging-in  to
+              the  mailserver.   The  appropriate  user identification is both
+              server and user dependent.  Default is your login  name  on  the
+              machine  that  is  running  _p_o_p_c_l_i_e_n_t_.   See USER AUTHENTICATION
+              below for a complete description.
+
+       -p     Specifies the  password  to  be  used  when  logging-in  to  the
+              mailserver.   The  appropriate  password is both server and user
+              dependent.  If the --pp option is not used to specify a  password,
+              you will be prompted for a password before the connection to the
+              mailserver is established.  See USER AUTHENTICATION below for  a
+              complete description.
+
+       -f     Causes  an  alternate  mail  folder  on  the  mailserver  to  be
+              retrieved.  The syntax of the folder name is  server  dependent,
+              as  is the default behavior when no folder is specified.  Fortu-
+              nately, most POP servers have a reasonable default behavior,  so
+              use  of  this  option  should  be  limited to fairly specialized
+              applications.  POP3 does not provide a folder  specification  in
+              the  protocol.  If the --ff option is used in conjunction with the
+              --33 option, the remote folder specification is ignored.
+
+       -o     Causes retrieved messages to be appended to  an  alternate  mail
+              folder  on the local disk.  When neither --oo nor --cc is specified,
+              retrieved messages are  appended  to  the  system  default  mail
+              folder. See OUTPUT OPTIONS below for a complete description.
+
+       -c     Causes  retrieved  messages to be written to stdout instead of a
+              mail folder.  See OUTPUT OPTIONS below for a  complete  descrip-
+              tion.   You  may  not  specify both the --cc and --oo options on the
+              same command line.
+
+       -V     Displays the version information for your copy of _p_o_p_c_l_i_e_n_t_.  If
+              you  specify the --VV option, all other options are ignored and no
+              POP connection is made.
+
+
+PPRROOTTOOCCOOLL SSEELLEECCTTIIOONN
+       The selection of the  correct  Post  Office  Protocol  (POP2  or  POP3)
+       depends  upon  the  configuration  of  the  mailserver  from  which you
+       retrieve your mail.  The system adminstrator who installed _p_o_p_c_l_i_e_n_t on
+       your system should have chosen an appropriate default protocol for your
+       mailserver.  If you get the message 'Connection refused' when using the
+       default  protocol, try specifying --22 or --33 to select a different proto-
+       col.  If the 'Connection refused' message persists  regardless  of  the
+       protocol  selected,  it is likely that your mailserver is not running a
+       POP compliant mail service.
+
+
+UUSSEERR AAUUTTHHEENNTTIICCAATTIIOONN
+       User authentication in _p_o_p_c_l_i_e_n_t is very much like  the  authentication
+       mechanism  of _f_t_p_(_1_)_.  The correct user-id and password depend upon the
+       underlying security system at the mailserver.
+
+       If the mailserver is a Unix machine on which you have an ordinary  user
+       account,  your regular login name and password are used with _p_o_p_c_l_i_e_n_t_.
+       If you use the same login name  on  both  the  server  and  the  client
+       machines,  you  needn't  worry  about  specifying a user-id with the --uu
+       option -- the default behavior will use your login name on  the  client
+       machine  as  the user-id on the server machine.  If you use a different
+       login name on the server machine, specify that login name with  the  --uu
+       option.   e.g. if your login name is 'jsmith' on a machine named 'mail-
+       grunt', you would start _p_o_p_c_l_i_e_n_t as follows:
+
+              popclient -u jsmith mailgrunt
+
+       The default behavior of _p_o_p_c_l_i_e_n_t is to prompt you for your  mailserver
+       password  before the POP connection is established.  This is the safest
+       way to use _p_o_p_c_l_i_e_n_t and ensures that your password will not be compro-
+       mised.   You  may also specify your password using the --pp option.  This
+       is convenient when using _p_o_p_c_l_i_e_n_t with automated scripts, but  it  may
+       result  in  your  password  being exposed to prying eyes -- be careful!
+       Regardless of how your password is specified  it  is  never  stored  in
+       shared memory segments, or left unencrypted in the core image when _p_o_p_-
+       _c_l_i_e_n_t terminates.  Continuing  the  preceding  example,  suppose  your
+       password on 'mailgrunt' is 'Gr8PassWd'.  The syntax would be:
+
+              popclient -u jsmith -p Gr8PassWd mailgrunt
+
+       On mailservers that do not provide ordinary user accounts, your user-id
+       and password are usually assigned by the server administrator when  you
+       apply  for  a mailbox on the server.  Contact your server administrator
+       if you don't know the correct user-id and  password  for  your  mailbox
+       account.
+
+
+OOUUTTPPUUTT OOPPTTIIOONNSS
+       _p_o_p_c_l_i_e_n_t  always  writes the retrieved messages using Unix mail folder
+       format.  This allows _p_o_p_c_l_i_e_n_t to be used in  conjunction  with  common
+       mail  readers  like  _m_a_i_l and _e_l_m_.  The retrieved messages are normally
+       appended to your default system mailbox on the local  disk,  using  the
+       local Mail Delivery Agent (MDA), usually /bin/mail(1), so that when you
+       invoke your mail reader it can manipulate the retrieved  messages  like
+       any other mail you receive on the client machine.
+
+       Using  the  --oo option, you can specify a different mail folder to which
+       the retrieved messages will be appended.  If you prefer,  for  example,
+       to  have  your POP mail from a machine called 'mailgrunt' stored in the
+       _m_b_o_x file in your home directory, you would start _p_o_p_c_l_i_e_n_t as follows:
+
+              popclient -o $HOME/mbox mailgrunt
+
+       Note  that the folder specified with --oo is not locked or otherwise pro-
+       tected from other processes writing to it while popclient is writing to
+       it.
+
+       _p_o_p_c_l_i_e_n_t  can  be used in a shell pipeline by using the --cc option.  In
+       this mode, _p_o_p_c_l_i_e_n_t writes the retrieved messages to  stdout,  instead
+       of  a  mail  folder.   This  would allow you, for instance, to pass the
+       incoming mail through a filter that discards  mail  marked  as  'Prece-
+       dence:   junk'.    Suppose   you've   written   an  AWK  script  called
+       'dumpjunk.awk' to implement a junk mail filter.  The appropriate syntax
+       to retrieve your mail from 'mailgrunt', pass it through the filter, and
+       write it to a folder called 'realmail' in your home directory would be:
+
+              popclient -c mailgrunt | awk -f dumpjunk.awk > $HOME/realmail
+
+       The  progress/status  messages written to stderr when the --ss option has
+       not been specified, do not interfere with the message stream, which  is
+       written  to  stdout.   You may even use --vv and --cc together without cor-
+       rupting the message stream.  It is a good idea to  use  the  --kk  option
+       when  using --cc to insure that your messages will not be lost if part of
+       the shell pipeline does not function incorrectly.  The safest bet would
+       be something like:
+
+              popclient -k -c mailgrunt | myfilter > $HOME/filtered.mail
+
+       followed by
+
+              popclient -c mailgrunt > /dev/null
+
+       when you're sure the messages were correctly processed by 'myfilter'.
+
+
+EEXXIITT CCOODDEESS
+       To  facilitate  the  use of _p_o_p_c_l_i_e_n_t in shell scripts and the like, an
+       exit code is returned to give an indication of what  occured  during  a
+       given  POP  connection.   The exit code can be tested by the script and
+       appropriate action taken.
+
+       A simple example follows.  This Bourne shell script executes  _p_o_p_c_l_i_e_n_t
+       and,  if  some  messages  were successfully retrieved from a mailserver
+       retrieved from the command line, it starts the  _m_a_i_l  utility  to  read
+       those  messages.   Otherwise,  it  prints  a  brief message, and exits.
+       #!/bin/sh
+
+       if popclient $1 then
+         mail else
+         echo "No mail to read."  fi
+
+       The exit codes returned by _p_o_p_c_l_i_e_n_t are as follows:
+
+       0      One or more messages were successfully retrieved.
+
+       1      There was no mail awaiting retrieval.
+
+       2      An error was encountered when attempting to open  a  socket  for
+              the  POP  connection.  If you don't know what a socket is, don't
+              worry about it -- just treat this as an 'unrecoverable error'.
+
+       3      The user authentication step failed.  This usually means that  a
+              bad user-id or password was specified.
+
+       4      Some sort of protocol error was detected.  POP is not especially
+              forgiving when it comes to unexpected responses,  commands,  etc
+              --  the protocol invariably calls for terminating the connection
+              under such error conditions.
+
+       5      There was a syntax error in the arguments to _p_o_p_c_l_i_e_n_t_.
+
+       6      Some kind of I/O woes occurred when writing to the local folder.
+
+       7      There was an error condition reported by the server (POP3 only).
+
+       9      Something totally undefined occured.  This is usually caused  by
+              a bug within _p_o_p_c_l_i_e_n_t_.  Do let me know if this happens.
+
+
+AAUUTTHHOORR
+       _p_o_p_c_l_i_e_n_t  was written by Carl Harris at Virginia Polytechnic Institute
+       and State University (a.k.a. Virginia Tech).
+
+
+BBUUGGSS
+       There are none!  Well, maybe one or two.  Send comments,  bug  reports,
+       gripes, and the like to ceharris@vt.edu.
+
+SSEEEE AALLSSOO
+       mail(1), binmail(1), sendmail(8), popd(8), RFC 937, RFC 1225.
+
+
+
+                                                                 popclient(1L)
